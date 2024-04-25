@@ -182,7 +182,7 @@ permissions and limitations under the License.
     };
 
     // Initialize S3 SDK and the moment library (for time formatting utilities)
-    var endpoint = 'ams3.digitaloceanspaces.com'
+    var endpoint = 'nyc3.digitaloceanspaces.com'
     var s3 = new AWS.S3({ endpoint: endpoint });
     moment().format();
 
@@ -466,7 +466,7 @@ permissions and limitations under the License.
     $(document).ready(function () {
         console.log('ready');
 
-        AWS.config.region = 'ams3';
+        AWS.config.region = 'nyc3';
         console.log('Region: ' + AWS.config.region);
 
         // Click handler for refresh button (to invoke manual refresh)
@@ -642,8 +642,8 @@ permissions and limitations under the License.
         // derive the initial bucket from the document URL (useful if index.html was
         // launched directly from within a bucket), else prompt the user.
 
-        s3exp_config.Bucket = 'cheqd-node-backups';
-        s3exp_config.Region = 'ams3';
+        s3exp_config.Bucket = 'krishnanyc3';
+        s3exp_config.Region = 'nyc3';
         s3exp_config.Delimiter = '/';
 
         (s3exp_lister = s3list(s3exp_config, s3draw)).go();
