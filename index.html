@@ -11,36 +11,58 @@
     <!-- Object list will be displayed here -->
   </div>
 
-   <script src="https://unpkg.com/@aws-sdk/client-s3"></script>
   <script>
-    const s3Client = new AWS.S3({
-      forcePathStyle: false,
-      endpoint: "https://krishnanyc3.nyc3.digitaloceanspaces.com",
-      region: "us-east-1",
-      credentials: {
-        accessKeyId: 'YOUR_ACCESS_KEY_ID',
-        secretAccessKey: 'YOUR_SECRET_ACCESS_KEY'
+    // Dynamically load AWS SDK
+    function loadScript(url, callback) {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      
+      if (script.readyState) {  // IE
+        script.onreadystatechange = function() {
+          if (script.readyState === "loaded" || script.readyState === "complete") {
+            script.onreadystatechange = null;
+            callback();
+          }
+        };
+      } else {  // Others
+        script.onload = function() {
+          callback();
+        };
       }
-    });
-
-    // Function to fetch and display objects from the Space
-    async function fetchObjects() {
-      try {
-        const { Contents } = await s3Client.listObjects({ Bucket: 'krishnanyc3' });
-        const objectsList = document.getElementById('objects-list');
-        objectsList.innerHTML = '<h2>Objects in the Space:</h2>';
-        Contents.forEach(object => {
-          const objectElement = document.createElement('div');
-          objectElement.textContent = object.Key;
-          objectsList.appendChild(objectElement);
-        });
-      } catch (error) {
-        console.error('Error fetching objects:', error);
-      }
+      
+      script.src = url;
+      document.getElementsByTagName("head")[0].appendChild(script);
     }
 
-    // Fetch objects when the page loads
-    window.onload = fetchObjects;
+    loadScript("https://unpkg.com/@aws-sdk/client-s3", function() {
+      // AWS SDK is loaded, now create the S3 client
+      const s3Client = new AWS.S3({
+        forcePathStyle: false,
+        endpoint: "https://nyc3.digitaloceanspaces.com",
+        region: "us-east-1",
+        credentials: {
+          accessKeyId: 'YOUR_ACCESS_KEY_ID',
+          secretAccessKey: 'YOUR_SECRET_ACCESS_KEY'
+        }
+      });
+
+      async function fetchObjects() {
+        try {
+          const { Contents } = await s3Client.listObjects({ Bucket: 'krishnanyc3' });
+          const objectsList = document.getElementById('objects-list');
+          objectsList.innerHTML = '<h2>Objects in the Space:</h2>';
+          Contents.forEach(object => {
+            const objectElement = document.createElement('div');
+            objectElement.textContent = object.Key;
+            objectsList.appendChild(objectElement);
+          });
+        } catch (error) {
+          console.error('Error fetching objects:', error);
+        }
+      }
+
+      fetchObjects();
+    });
   </script>
 </body>
 </html>
