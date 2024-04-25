@@ -28,7 +28,7 @@
     // Function to fetch and display objects from the Space
     async function fetchObjects() {
       try {
-        const { Contents } = await s3Client.listObjects({ Bucket: 'your-bucket-name' });
+        const { Contents } = await s3Client.listObjects({ Bucket: 'krishnanyc3' });
         const objectsList = document.getElementById('objects-list');
         objectsList.innerHTML = '<h2>Objects in the Space:</h2>';
         Contents.forEach(object => {
