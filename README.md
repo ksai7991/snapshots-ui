@@ -1,6 +1,6 @@
 # Snapshots Explorer for cheqd networks
 
-Simple browser-based app to display contents of an S3-compatible object storage bucket. Used for [snapshots.cheqd.net](https://snapshots.cheqd.net).
+Simple browser-based app to display contents of an S3-compatible object storage bucket. Used for [snapshots.cheqd.net](https://snapshots.cheqd.net).errgrg
 
 This repo is forked from [awslabs/aws-js-s3-explorer](https://github.com/awslabs/aws-js-s3-explorer) to utilise [DigitalOcean's Spaces object-storage offering](https://www.digitalocean.com/products/spaces) instead of AWS S3.
 
